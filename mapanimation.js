@@ -1,5 +1,5 @@
-// mapboxgl.accessToken = 'pk.eyJ1Ijoid3dyaWdodDIxIiwiYSI6ImNsandzMno0ZDA1aTAzZm15bG1nZzZlcWMifQ.Ul9Oy40d-hWa_hvwaLNXbw';
-import { mapboxToken } from './config.js'
+const mapboxToken = 'pk.eyJ1Ijoid3dyaWdodDIxIiwiYSI6ImNsandzMno0ZDA1aTAzZm15bG1nZzZlcWMifQ.Ul9Oy40d-hWa_hvwaLNXbw';
+
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -12,15 +12,7 @@ var map = new mapboxgl.Map({
 // instantiate the markers array
 let markers = [];
 
-// define the custom marker
-const markerElement = document.createElement('div');
-markerElement.className = 'custom-marker';
-markerElement.style.backgroundImage = "url('bus2.png')";
-markerElement.style.width = '32px';
-markerElement.style.height = '32px';
 
-
-// new
 async function run(){
 	const locations = await getBusLocations();
     // get bus data    
@@ -35,10 +27,16 @@ async function run(){
 
 	// Draw new markers
 	locations.forEach(location => {
-		const {latitude, longitude} = location;
+		const {latitude, longitude, occupancyStatus, id} = location;
 		const marker = new mapboxgl.Marker()
 			.setLngLat([longitude, latitude])
 			.addTo(map);
+		
+		const popup = new mapboxgl.Popup()
+			.setHTML(`<b>Bus ID:</b> ${id}<br><hr><b>Occupancy Status:</b> ${occupancyStatus}`)
+		
+		marker.setPopup(popup);
+
 		markers.push(marker)
 	})
 	
@@ -54,10 +52,19 @@ async function getBusLocations(){
 	let buses = [];
 
 	for (let i= 0; i < json.data.length; i++){
+		let occupancyStatus = 'No data';
 
-		// method 2
+		if (json.data[i].attributes.occupancy_status !== null) {
+			occupancyStatus = json.data[i].attributes.occupancy_status
+				.toLowerCase()
+				.split('_')
+				.map(word => word.charAt(0).toUpperCase() + word.slice(1))
+				.join(' ');
+		}
+
 		let busAttributes = {
-			id: json.data[i].id,
+			id: json.data[i].attributes.label,
+			occupancyStatus: occupancyStatus,
 			latitude: json.data[i].attributes.latitude,
 			longitude: json.data[i].attributes.longitude
 		};
