@@ -1,11 +1,11 @@
-const mapboxToken = 'pk.eyJ1Ijoid3dyaWdodDIxIiwiYSI6ImNsandzMno0ZDA1aTAzZm15bG1nZzZlcWMifQ.Ul9Oy40d-hWa_hvwaLNXbw';
+mapboxgl.accessToken = 'pk.eyJ1Ijoid3dyaWdodDIxIiwiYSI6ImNsandzMno0ZDA1aTAzZm15bG1nZzZlcWMifQ.Ul9Oy40d-hWa_hvwaLNXbw';
 
 var map = new mapboxgl.Map({
     container: 'map',
     style: 'mapbox://styles/mapbox/dark-v11',
     center: [-71.104081, 42.365554],
     zoom: 14,
-    accessToken: mapboxToken
+    // accessToken: mapboxToken
 });
 
 // instantiate the markers array
