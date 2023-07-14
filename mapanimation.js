@@ -3,7 +3,7 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoid3dyaWdodDIxIiwiYSI6ImNsandzMno0ZDA1aTAzZm15b
 var map = new mapboxgl.Map({
 	container: 'map',
 	style: 'mapbox://styles/mapbox/dark-v11',
-	center: [-71.089023,42.350578],
+	center: [-71.089023, 42.350578],
 	zoom: 14,
 	// accessToken: mapboxToken
 });
@@ -22,10 +22,42 @@ document.querySelector('#fly-to-MIT').addEventListener('click', () => {
 // reset the map view
 document.querySelector('#reset-view').addEventListener('click', () => {
 	map.flyTo({
-		center: [-71.089023,42.350578],
+		center: [-71.089023, 42.350578],
 		zoom: 14,
 	})
 })
+
+// create bus stops
+
+const busStops = [
+	[-71.093729, 42.359244],
+	[-71.094915, 42.360175],
+	[-71.095800, 42.360698],
+	[-71.099558, 42.362953],
+	[-71.103476, 42.365248],
+	[-71.106067, 42.366806],
+	[-71.108717, 42.368355],
+	[-71.110799, 42.369192],
+	[-71.113095, 42.370218],
+	[-71.115476, 42.372085],
+	[-71.117585, 42.373016],
+	[-71.118625, 42.374863]
+];
+
+busStops.forEach(busStop => {
+	const { latitude, longitude} = busStop;
+	const stopLoc = new mapboxgl.Marker({
+		color: '#ff0000',
+		scale: 0.90
+	})
+		.setLngLat(busStop)
+		.addTo(map);
+
+	const stopPopup = new mapboxgl.Popup({ offset: 32 })
+	.setHTML(`<b>Bus Stop lat/long:</b><br> ${busStop[1]}, ${busStop[0]}`)
+
+	stopLoc.setPopup(stopPopup);
+});
 
 
 async function run() {
