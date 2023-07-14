@@ -31,7 +31,7 @@ document.querySelector('#reset-view').addEventListener('click', () => {
 async function run() {
 	const locations = await getBusLocations();
 	// get bus data    
-	console.log(new Date());
+	// console.log(new Date());
 	console.log(locations);
 
 	// Remove old markers
@@ -42,12 +42,14 @@ async function run() {
 
 	// Draw new markers
 	locations.forEach(location => {
+		const el = document.createElement('div');
+		el.className = 'marker';
 		const { latitude, longitude, occupancyStatus, id } = location;
-		const marker = new mapboxgl.Marker()
+		const marker = new mapboxgl.Marker(el)
 			.setLngLat([longitude, latitude])
 			.addTo(map);
 
-		const popup = new mapboxgl.Popup()
+		const popup = new mapboxgl.Popup({ offset: 28 })
 			.setHTML(`<b>Bus ID:</b> ${id}<br><hr><b>Occupancy Status:</b> ${occupancyStatus}`)
 
 		marker.setPopup(popup);
