@@ -10,6 +10,42 @@
     <link href="https://api.mapbox.com/mapbox-gl-js/v1.11.0/mapbox-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 
+    <style>
+        /* styles for the clickable buttons */
+        #sidebar button,
+        #info-box {
+            font-family: "Arial", sans-serif; 
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0);
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+
+        /* #sidebar #info-box {
+            font-family: "Arial", sans-serif; 
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0);
+            color: #fff;
+            font-size: 16px;
+            cursor: text;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        } */
+
+        #sidebar button:hover,
+        #info-box:hover {
+            opacity: 1;
+            background-color: gray;
+        }
+    </style>
+
 <body>
 
 
@@ -19,7 +55,8 @@
             <button id="fly-to-MIT">Zoom to MiT Campus</button>
             <button id="fly-to-Harvard">Zoom to Harvard Campus</button>
             <button id="reset-view">Reset View</button>
-            <!-- <button id="toggle-stops">Toggle Harvard-MiT Bus Stops</button> -->
+            <!-- text box below the bottom button -->
+            <div id="info-box"><em>Click on bus icon for more information.</em></div>
         </div>
     </div>
 

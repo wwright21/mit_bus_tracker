@@ -64,37 +64,6 @@ const busStops = [
 	[-71.118625, 42.374863]
 ];
 
-// // the new way
-// // Create a GeoJSON feature collection for bus stops
-// const busStopFeatures = busStops.map(busStop => ({
-// 	type: 'Feature',
-// 	properties: {},
-// 	geometry: {
-// 	  type: 'Point',
-// 	  coordinates: busStop
-// 	}
-//   }));
-  
-//   // Add bus stop markers as a map layer
-//   map.on('load', function() {
-// 	map.addLayer({
-// 	  id: 'busStopsLayer',
-// 	  type: 'symbol',
-// 	  source: {
-// 		type: 'geojson',
-// 		data: {
-// 		  type: 'FeatureCollection',
-// 		  features: busStopFeatures
-// 		}
-// 	  },
-// 	  layout: {
-// 		'icon-image': 'marker-15',
-// 		'icon-size': 1.5
-// 	  },
-// 	  paint: {}
-// 	});
-//   });
-
 
 // the old way
 busStops.forEach(busStop => {
